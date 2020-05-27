@@ -1,23 +1,57 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { listGallery } from "../api";
 
 export default function AdminPage() {
+  const [galleries, setGalleries] = useState([]);
+
+  useEffect(() => {
+    listGallery()
+      .then((data) => {
+        setGalleries(data);
+      })
+      .catch((err) => console.error(err));
+  }, []);
   return (
     <div>
-      <nav class="flex items-center justify-between flex-wrap bg-teal-500 p-6">
-        <div class="flex items-center flex-shrink-0 text-white mr-6">
-          <span class="font-semibold text-xl tracking-tight">Gallery</span>
-        </div>
-        <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
-          <div>
-            <a
-              href="#"
-              class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0"
-            >
-              New Gallery
-            </a>
-          </div>
-        </div>
+      <nav class="nav">
+        <Link to="/admin" class="nav__brand">
+          Gallery
+        </Link>
       </nav>
+      <div class="container">
+        <form class="gallery-form">
+          <div class="gallery-form__field">
+            <label for="gallery-name">Gallery Name</label>
+            <input type="text" id="gallery-name" autoFocus />
+          </div>
+          <button type="submit" class="gallery-form__submit">
+            submit
+          </button>
+        </form>
+        <table class="gallery-list">
+          <thead class="gallery-list__head">
+            <tr class="gallery-list__headrow">
+              <th>#</th>
+              <th>Gallery Name</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody class="gallery-list__body">
+            {galleries.map((gallery) => {
+              return (
+                <tr key={gallery.id} class="gallery-list__row">
+                  <td>3</td>
+                  <td>{gallery.name}</td>
+                  <td>
+                    <button class="gallery-list__action">delete</button>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
