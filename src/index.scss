@@ -164,30 +164,6 @@ code {
   margin: 0 2rem;
 }
 
-.gallery-form {
-  display: flex;
-  flex-flow: row wrap;
-  font-size: 1.2rem;
-  max-width: 500px;
-  margin-top: 1rem;
-}
-
-.gallery-form__field {
-  label {
-    margin-right: 0.5rem;
-    font-size: 1.5rem;
-    font-weight: bold;
-  }
-  input[type="text"] {
-    border: 1px solid #000;
-    border-radius: 0.25rem;
-    padding: 8px 16px;
-    outline: none;
-    font-size: 1.2rem;
-    margin-right: 0.5rem;
-  }
-}
-
 @mixin button {
   text-transform: capitalize;
   border: 1px solid #000;
@@ -207,8 +183,22 @@ code {
   }
 }
 
-.gallery-form__submit {
-  @include button;
+.gallery-form {
+  margin-top: 64px;
+  text-align: center;
+}
+
+.gallery-form__text {
+  font-size: 2rem;
+  border: none;
+  border-bottom: 2px solid #000;
+  outline: none;
+  text-align: center;
+  padding: 8px 16px;
+}
+
+.gallery-form__text--editing {
+  font-style: italic;
 }
 
 .gallery-list {

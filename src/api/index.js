@@ -17,3 +17,8 @@ export function deleteGallery(id) {
   const url = `${host}/galleries/${id}`;
   return axios.delete(url);
 }
+
+export function updateGalleryName(name) {
+  const url = `${host}/galleries/${id}`;
+  return axios.patch(url, { name });
+}
