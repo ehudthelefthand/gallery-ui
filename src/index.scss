@@ -133,10 +133,7 @@ table {
 }
 
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -216,25 +213,50 @@ code {
 
 .gallery-list {
   margin-top: 2rem;
-  width: 500px;
-  font-size: 1.2rem;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
   text-align: center;
 }
 
-.gallery-list__head {
-  font-size: 1.5rem;
-  border-bottom: 1px solid #000;
-  th {
-    padding: 1rem;
+.gallery-item {
+  margin-right: 32px;
+  cursor: pointer;
+
+  a,
+  a:hover,
+  a:active,
+  a:visited {
+    text-decoration: none;
+    outline: none;
+    color: inherit;
   }
 }
 
-.gallery-list__row {
-  td {
-    padding: 1rem;
+.gallery-item__cover {
+  border: 8px solid #000;
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  position: relative;
+  box-shadow: 4px 4px 16px -4px;
+
+  svg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
   }
 }
 
-.gallery-list__action {
-  @include button;
+.gallery-item__title {
+  font-weight: 700;
+  margin-top: 16px;
 }
