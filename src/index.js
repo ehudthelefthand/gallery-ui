@@ -4,9 +4,9 @@ import "./index.scss";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faImages } from "@fortawesome/free-solid-svg-icons";
 
-library.add(faPlus);
+library.add(faPlus, faImages);
 
 ReactDOM.render(
   <React.StrictMode>

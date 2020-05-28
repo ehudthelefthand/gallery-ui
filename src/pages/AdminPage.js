@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Switch, Route, useRouteMatch } from "react-router-dom";
 
 import Navbar from "../components/Navbar";
@@ -6,7 +6,7 @@ import GalleryList from "../components/GalleryList";
 import GalleryPage from "../pages/GalleryPage";
 
 export default function AdminPage() {
-  const { url, path } = useRouteMatch();
+  const { path } = useRouteMatch();
 
   return (
     <div>

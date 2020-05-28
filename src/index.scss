@@ -244,6 +244,10 @@ code {
     height: 100%;
     overflow: hidden;
   }
+
+  &:hover {
+    border: 12px solid #000;
+  }
 }
 
 .gallery-item__title {

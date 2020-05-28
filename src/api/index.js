@@ -3,22 +3,41 @@ import axios from "axios";
 // const host = "http://localhost:8080";
 const host = "/api";
 
-export function listGallery() {
+function listGallery() {
   const url = `${host}/galleries`;
   return axios.get(url);
 }
 
-export function createGallery({ name }) {
+function createGallery({ name }) {
   const url = `${host}/galleries`;
   return axios.post(url, { name });
 }
 
-export function deleteGallery(id) {
+function deleteGallery(id) {
   const url = `${host}/galleries/${id}`;
   return axios.delete(url);
 }
 
-export function updateGalleryName(name) {
-  const url = `${host}/galleries/${id}`;
+function updateGalleryName({ id, name }) {
+  const url = `${host}/galleries/${id}/names`;
   return axios.patch(url, { name });
 }
+
+function updateGalleryStatus({ id, status }) {
+  const url = `${host}/galleries/${id}/status`;
+  return axios.patch(url, { status });
+}
+
+function getGallery(id) {
+  const url = `${host}/galleries/${id}`;
+  return axios.get(url);
+}
+
+export default {
+  listGallery,
+  createGallery,
+  deleteGallery,
+  updateGalleryName,
+  updateGalleryStatus,
+  getGallery,
+};
