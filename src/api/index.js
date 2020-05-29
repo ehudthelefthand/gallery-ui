@@ -47,14 +47,14 @@ function getGallery(id) {
   return axios.get(url);
 }
 
-function login({ username, password }) {
+function login({ email, password }) {
   const url = `${host}/login`;
-  return axios.post(url, { username, password });
+  return axios.post(url, { email, password });
 }
 
-function signup({ username, password }) {
+function signup({ email, password }) {
   const url = `${host}/signup`;
-  return axios.post(url, { username, password });
+  return axios.post(url, { email, password });
 }
 
 export default {

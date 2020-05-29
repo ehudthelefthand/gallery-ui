@@ -7,8 +7,8 @@ const AuthContext = createContext();
 function AuthProvider(props) {
   let user = { isLogin: false };
 
-  const login = ({ username, password }) => {
-    API.login({ username, password })
+  const login = ({ email, password }) => {
+    API.login({ email, password })
       .then((res) => {
         user = { ...user, isLogin: true };
         Storage.saveToken(res.data.token);
@@ -29,8 +29,8 @@ function AuthProvider(props) {
       });
   };
 
-  const signup = ({ username, password }) => {
-    API.signup({ username, password })
+  const signup = ({ email, password }) => {
+    API.signup({ email, password })
       .then((res) => {
         user = { ...user, isLogin: true };
         Storage.saveToken(res.data.token);
