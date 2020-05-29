@@ -71,6 +71,14 @@ export default function () {
           autoFocus
         ></input>
       </form>
+      <form
+        method="POST"
+        action={`/galleries/${id}/images`}
+        enctype="multipart/form-data"
+      >
+        <input type="file" name="photos" multiple />
+        <button type="submit">upload</button>
+      </form>
     </div>
   );
 }

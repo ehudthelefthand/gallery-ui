@@ -33,6 +33,16 @@ function getGallery(id) {
   return axios.get(url);
 }
 
+function login({ username, password }) {
+  const url = `${host}/login`;
+  return axios.post(url, { username, password });
+}
+
+function signup({ username, password }) {
+  const url = `${host}/signup`;
+  return axios.post(url, { username, password });
+}
+
 export default {
   listGallery,
   createGallery,
@@ -40,4 +50,6 @@ export default {
   updateGalleryName,
   updateGalleryStatus,
   getGallery,
+  login,
+  signup,
 };

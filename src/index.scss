@@ -171,8 +171,11 @@ code {
   font-size: 1rem;
   padding: 8px 16px;
   font-weight: bold;
+  height: 40px;
   cursor: pointer;
+  color: #000;
   outline: none;
+  text-decoration: none;
   &:hover {
     background-color: #000;
     color: #fff;
@@ -253,4 +256,40 @@ code {
 .gallery-item__title {
   font-weight: 700;
   margin-top: 16px;
+}
+
+.login-form {
+  width: 400px;
+  margin: 0 auto;
+  margin-top: 32px;
+}
+
+.login-form__field {
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 16px;
+}
+
+.login-form__label {
+  flex: 1;
+  font-weight: 700;
+}
+
+.login-form__text {
+  flex: 2;
+  border: 1px solid #000;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.login-form__submit {
+  @include button;
+}
+
+.login-form__field--space-evenly {
+  justify-content: space-evenly;
 }
