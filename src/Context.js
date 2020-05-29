@@ -1,9 +1,59 @@
 import React, { createContext, useContext } from "react";
+import API from "./api";
+import Storage from "./storage";
 
-const UserStateContext = createContext();
-const UserDispatchContext = createContext();
+const AuthContext = createContext();
 
-// function useUser() {
-//   const context = useContext(UserStateContext);
-//   if (context === )
-// }
+function AuthProvider(props) {
+  let user = { isLogin: false };
+
+  const login = ({ username, password }) => {
+    API.login({ username, password })
+      .then((res) => {
+        user = { ...user, isLogin: true };
+        Storage.saveToken(res.data.token);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
+  const logout = () => {
+    API.logout()
+      .then(() => {
+        user = { ...user, isLogin: false };
+        Storage.saveToken("");
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
+  const signup = ({ username, password }) => {
+    API.signup({ username, password })
+      .then((res) => {
+        user = { ...user, isLogin: true };
+        Storage.saveToken(res.data.token);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
+  return (
+    <AuthContext.Provider
+      value={{ user, login, logout, signup }}
+      {...props}
+    ></AuthContext.Provider>
+  );
+}
+
+const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (context === undefined) {
+    throw new Error("useAuth must be used within AuthProvider");
+  }
+  return context;
+};
+
+export { AuthProvider, useAuth };

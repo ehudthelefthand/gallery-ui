@@ -10,6 +10,7 @@ import Navbar from "./components/Navbar";
 import AdminPage from "./pages/AdminPage";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
+import { useAuth } from "./Context";
 
 function AuthenticatedApp() {
   return (
@@ -53,27 +54,10 @@ function UnauthenticatedApp() {
 }
 
 function App() {
-  let user = {};
+  const { user } = useAuth();
   return (
     <div className="App">
-      {user ? <AuthenticatedApp /> : <UnauthenticatedApp />}
-      {/* <Router>
-        <Navbar />
-        <Switch>
-          <Route exact path="/admin">
-            <AdminPage />
-          </Route>
-          <Route exact path="/login">
-            <LoginPage />
-          </Route>
-          <Route exact path="/signup">
-            <SignupPage />
-          </Route>
-          <Route exact path="/">
-            <div>home</div>
-          </Route>
-        </Switch>
-      </Router> */}
+      {user.isLogin ? <AuthenticatedApp /> : <UnauthenticatedApp />}
     </div>
   );
 }

@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../Context";
 
 export default function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const { login } = useAuth();
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    login({ username, password });
   };
 
   return (

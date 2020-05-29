@@ -5,12 +5,15 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faPlus, faImages } from "@fortawesome/free-solid-svg-icons";
+import { AuthProvider } from "./Context";
 
 library.add(faPlus, faImages);
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <AuthProvider>
+      <App />
+    </AuthProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

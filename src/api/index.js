@@ -1,4 +1,18 @@
 import axios from "axios";
+import Storage from "../storage";
+
+axios.interceptors.request.use(
+  function (config) {
+    const token = Storage.getToken();
+    if (token) {
+      config.headers["Authorization"] = "Bearer " + token;
+    }
+    return config;
+  },
+  function (error) {
+    return Promise.reject(error);
+  }
+);
 
 // const host = "http://localhost:8080";
 const host = "/api";
