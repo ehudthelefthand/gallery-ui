@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useHistory, useRouteMatch } from "react-router-dom";
 import classNames from "classnames";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import API from "../api";
 
 export default function () {
-  const { url, path } = useRouteMatch();
-  console.log("url", url);
-  console.log("path", path);
+  const { path } = useRouteMatch();
   const { id } = useParams();
-  console.log("id", id);
   const history = useHistory();
   const [isNameEditing, setIsNameEditing] = useState(false);
   const [gallery, setGallery] = useState({
@@ -16,6 +14,7 @@ export default function () {
     name: "",
     is_publish: false,
   });
+  const [images, setImages] = useState([]);
 
   useEffect(() => {
     if (id !== "new") {
@@ -27,7 +26,17 @@ export default function () {
         })
         .catch((err) => console.error(err));
     }
-  }, []);
+  }, [id]);
+
+  useEffect(() => {
+    if (id !== "new") {
+      API.listGalleryImage(id)
+        .then((res) => {
+          setImages(res.data);
+        })
+        .catch((err) => console.error(err));
+    }
+  }, [id]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -53,6 +62,32 @@ export default function () {
     }
   };
 
+  const handleFileChange = (e) => {
+    const form = new FormData();
+    const files = e.target.files;
+    for (let i = 0; i < files.length; i++) {
+      form.append("photos", files[i]);
+    }
+    API.upload(id, form)
+      .then((res) => {
+        setImages([...images, ...res.data]);
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  };
+
+  const handleDelete = (id) => {
+    API.deleteImage(id)
+      .then(() => {
+        const filter = images.filter((img) => img.id !== id);
+        setImages(filter);
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  };
+
   const inputClasses = classNames("gallery-form__text", {
     "gallery-form__text--editing": isNameEditing,
   });
@@ -71,14 +106,53 @@ export default function () {
           autoFocus
         ></input>
       </form>
-      <form
+      {/* <form
         method="POST"
         action={`/galleries/${id}/images`}
-        enctype="multipart/form-data"
+        encType="multipart/form-data"
+        className="upload"
       >
-        <input type="file" name="photos" multiple />
-        <button type="submit">upload</button>
-      </form>
+        <input className="upload__input" type="file" name="photos" multiple />
+        <button className="upload__button" type="submit">
+          upload
+        </button>
+      </form> */}
+      <div className="upload">
+        <label className="upload__label" htmlFor="photos">
+          <span className="upload__label__text">Upload</span>
+          <FontAwesomeIcon
+            className="upload__label__icon"
+            icon="upload"
+            size="lg"
+          />
+        </label>
+        <input
+          className="upload__input"
+          type="file"
+          id="photos"
+          name="photos"
+          multiple
+          onChange={handleFileChange}
+        ></input>
+      </div>
+      <div className="images">
+        {images.map((img) => (
+          <div className="image" key={img.id}>
+            <img
+              src={`http://localhost:8080/${img.filename}`}
+              alt={img.filename}
+            />
+            <button
+              className="image__button"
+              onClick={() => {
+                handleDelete(img.id);
+              }}
+            >
+              delete
+            </button>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

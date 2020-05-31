@@ -30,7 +30,11 @@ export default function () {
             <Link to={`${url}/gallery/${gallery.id}`}>
               <div className="gallery-item__cover">
                 {gallery.cover ? (
-                  <img className="gallery-item__cover" src={gallery.cover} />
+                  <img
+                    className="gallery-item__cover"
+                    src={gallery.cover}
+                    alt={gallery.name}
+                  />
                 ) : (
                   <FontAwesomeIcon icon="images" size="2x" />
                 )}

@@ -10,54 +10,47 @@ import Navbar from "./components/Navbar";
 import AdminPage from "./pages/AdminPage";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
-import { useAuth } from "./Context";
+import { useAuthState } from "./Context";
 
-function AuthenticatedApp() {
+function Private({ children, ...rest }) {
+  let user = useAuthState();
   return (
-    <Router>
-      <Navbar />
-      <Switch>
-        <Route exact path="/admin">
-          <AdminPage />
-        </Route>
-        <Route exact path="/">
-          <div>home</div>
-        </Route>
-        <Route path="*">
-          <Redirect to={{ pathname: "/admin" }} />
-        </Route>
-      </Switch>
-    </Router>
-  );
-}
-
-function UnauthenticatedApp() {
-  return (
-    <Router>
-      <Navbar />
-      <Switch>
-        <Route exact path="/login">
-          <LoginPage />
-        </Route>
-        <Route exact path="/signup">
-          <SignupPage />
-        </Route>
-        <Route exact path="/">
-          <div>home</div>
-        </Route>
-        <Route path="*">
-          <Redirect to={{ pathname: "/" }} />
-        </Route>
-      </Switch>
-    </Router>
+    <Route
+      {...rest}
+      render={({ location }) =>
+        user.isLogin ? (
+          children
+        ) : (
+          <Redirect to={{ pathname: "/login", state: { from: location } }} />
+        )
+      }
+    ></Route>
   );
 }
 
 function App() {
-  const { user } = useAuth();
   return (
     <div className="App">
-      {user.isLogin ? <AuthenticatedApp /> : <UnauthenticatedApp />}
+      <Router>
+        <Navbar />
+        <Switch>
+          <Route exact path="/login">
+            <LoginPage />
+          </Route>
+          <Route exact path="/signup">
+            <SignupPage />
+          </Route>
+          <Route exact path="/">
+            <div>home</div>
+          </Route>
+          <Private path="/admin">
+            <AdminPage />
+          </Private>
+          <Route path="*">
+            <Redirect to={{ pathname: "/" }} />
+          </Route>
+        </Switch>
+      </Router>
     </div>
   );
 }

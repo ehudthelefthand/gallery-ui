@@ -1,59 +1,46 @@
-import React, { createContext, useContext } from "react";
-import API from "./api";
+import React, { createContext, useContext, useReducer } from "react";
 import Storage from "./storage";
 
-const AuthContext = createContext();
+const AuthStateContext = createContext();
+const AuthDispatchContext = createContext();
 
-function AuthProvider(props) {
-  let user = { isLogin: false };
+function authReducer(state, action) {
+  switch (action.type) {
+    case "SET_USER":
+      return { ...state };
+    default: {
+      throw new Error(`Unhandled action type: ${action.type}`);
+    }
+  }
+}
 
-  const login = ({ email, password }) => {
-    API.login({ email, password })
-      .then((res) => {
-        user = { ...user, isLogin: true };
-        Storage.saveToken(res.data.token);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
-
-  const logout = () => {
-    API.logout()
-      .then(() => {
-        user = { ...user, isLogin: false };
-        Storage.saveToken("");
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
-
-  const signup = ({ email, password }) => {
-    API.signup({ email, password })
-      .then((res) => {
-        user = { ...user, isLogin: true };
-        Storage.saveToken(res.data.token);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
+function AuthProvider({ children }) {
+  const isLogin = Storage.getToken() !== "";
+  const [state, dispatch] = useReducer(authReducer, { isLogin });
 
   return (
-    <AuthContext.Provider
-      value={{ user, login, logout, signup }}
-      {...props}
-    ></AuthContext.Provider>
+    <AuthStateContext.Provider value={state}>
+      <AuthDispatchContext.Provider value={dispatch}>
+        {children}
+      </AuthDispatchContext.Provider>
+    </AuthStateContext.Provider>
   );
 }
 
-const useAuth = () => {
-  const context = useContext(AuthContext);
+function useAuthState() {
+  const context = useContext(AuthStateContext);
   if (context === undefined) {
     throw new Error("useAuth must be used within AuthProvider");
   }
   return context;
-};
+}
 
-export { AuthProvider, useAuth };
+function useAuthDispatch() {
+  const context = useContext(AuthDispatchContext);
+  if (context === undefined) {
+    throw new Error("useAuth must be used within AuthProvider");
+  }
+  return context;
+}
+
+export { AuthProvider, useAuthState, useAuthDispatch };

@@ -47,6 +47,11 @@ function getGallery(id) {
   return axios.get(url);
 }
 
+function listGalleryImage(id) {
+  const url = `${host}/galleries/${id}/images`;
+  return axios.get(url);
+}
+
 function login({ email, password }) {
   const url = `${host}/login`;
   return axios.post(url, { email, password });
@@ -57,6 +62,26 @@ function signup({ email, password }) {
   return axios.post(url, { email, password });
 }
 
+function getSession() {
+  const url = `${host}/sessions`;
+  return axios.get(url);
+}
+
+function logout() {
+  const url = `${host}/logout`;
+  return axios.post(url);
+}
+
+function upload(id, formData) {
+  const url = `/galleries/${id}/images`;
+  return axios.post(url, formData);
+}
+
+function deleteImage(id) {
+  const url = `/images/${id}`;
+  return axios.delete(url);
+}
+
 export default {
   listGallery,
   createGallery,
@@ -64,6 +89,11 @@ export default {
   updateGalleryName,
   updateGalleryStatus,
   getGallery,
+  listGalleryImage,
   login,
   signup,
+  getSession,
+  logout,
+  upload,
+  deleteImage,
 };

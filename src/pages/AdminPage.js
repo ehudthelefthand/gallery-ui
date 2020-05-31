@@ -1,7 +1,6 @@
 import React from "react";
 import { Switch, Route, useRouteMatch } from "react-router-dom";
 
-import Navbar from "../components/Navbar";
 import GalleryList from "../components/GalleryList";
 import GalleryPage from "../pages/GalleryPage";
 

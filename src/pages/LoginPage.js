@@ -1,19 +1,39 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { useAuth } from "../Context";
+import { Link, useHistory, useLocation } from "react-router-dom";
+import API from "../api";
+import { useAuthState, useAuthDispatch } from "../Context";
+import Storage from "../storage";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { login } = useAuth();
+  const [message, setMessage] = useState("");
+  const history = useHistory();
+  const location = useLocation();
+  const dispatch = useAuthDispatch();
+  const user = useAuthState();
+
+  if (user.isLogin) {
+    history.replace("/admin");
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    login({ email, password });
+    API.login({ email, password })
+      .then((res) => {
+        dispatch({ type: "SET_USER", isLogin: true, email });
+        Storage.saveToken(res.data.token);
+        const { from } = location.state || { from: { pathname: "/admin" } };
+        history.replace(from);
+      })
+      .catch(() => {
+        setMessage("Login fail! Username or Password is invalid");
+      });
   };
 
   return (
     <div>
+      {message && <div className="message message--error">{message}</div>}
       <form className="login-form" onSubmit={handleSubmit}>
         <div className="login-form__field">
           <label className="login-form__label" htmlFor="email">
@@ -26,6 +46,7 @@ export default function LoginPage() {
             value={email}
             placeholder="test@mail.com"
             onChange={(e) => setEmail(e.target.value)}
+            onFocus={() => setMessage("")}
           />
         </div>
         <div className="login-form__field">

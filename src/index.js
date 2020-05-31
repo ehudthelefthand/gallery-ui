@@ -4,10 +4,10 @@ import "./index.scss";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faPlus, faImages } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faImages, faUpload } from "@fortawesome/free-solid-svg-icons";
 import { AuthProvider } from "./Context";
 
-library.add(faPlus, faImages);
+library.add(faPlus, faImages, faUpload);
 
 ReactDOM.render(
   <React.StrictMode>

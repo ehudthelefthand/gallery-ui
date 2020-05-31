@@ -147,6 +147,10 @@ code {
   padding: 2rem;
   background-color: #000;
   color: #fff;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .nav__brand {
@@ -156,6 +160,24 @@ code {
   &:hover,
   &:active {
     text-decoration: none;
+    color: #fff;
+  }
+}
+
+.nav__logout {
+  background-color: #000;
+  border: 1px solid #fff;
+  padding: 8px 16px;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  outline: none;
+  &:hover {
+    background-color: #fff;
+    color: #000;
+  }
+  &:active {
+    background-color: #000;
     color: #fff;
   }
 }
@@ -288,8 +310,96 @@ code {
 
 .login-form__submit {
   @include button;
+  width: 100%;
+  background-color: #000;
+  color: #fff;
+  margin-top: 16px;
+
+  &:hover {
+    background-color: #fff;
+    color: #000;
+  }
+  &:active {
+    background-color: #000;
+    color: #fff;
+  }
 }
 
 .login-form__field--space-evenly {
   justify-content: space-evenly;
+}
+
+.message {
+  text-align: center;
+  font-size: 2rem;
+  margin: 16px;
+}
+
+.message--error {
+  color: red;
+}
+
+.images {
+  margin: 16px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+}
+
+.image {
+  width: 20%;
+  margin: 32px;
+  img {
+    width: 100%;
+  }
+  text-align: center;
+}
+
+.image__button {
+  text-transform: capitalize;
+  margin-top: 16px;
+  padding: 8px 16px;
+  font-size: 1rem;
+  background-color: #000;
+  color: #fff;
+  border: 1px solid transparent;
+  cursor: pointer;
+  outline: none;
+  &:hover {
+    background-color: #fff;
+    color: #000;
+    border-color: #000;
+  }
+  &:active {
+    background-color: #000;
+    color: #fff;
+    border-color: transparent;
+  }
+}
+
+.upload {
+  text-align: center;
+  background-color: #000;
+  width: 200px;
+  color: #fff;
+  padding: 16px;
+  cursor: pointer;
+  margin: 24px auto 16px;
+}
+
+.upload__label {
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: inherit;
+}
+
+.upload__label__text {
+  margin-right: 24px;
+  font-weight: 700;
+}
+
+.upload__input {
+  display: none;
 }

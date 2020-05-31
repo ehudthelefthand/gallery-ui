@@ -1,7 +1,7 @@
 const APP_KEY = "gallery";
 
 function saveToken(token) {
-  let json = window.localStorage.getItem(APP_KEY);
+  let json = localStorage.getItem(APP_KEY);
   if (json === null) {
     json = { token };
   } else {
@@ -13,7 +13,7 @@ function saveToken(token) {
     }
   }
 
-  window.localStorage.setItem(APP_KEY, JSON.stringify(json));
+  localStorage.setItem(APP_KEY, JSON.stringify(json));
 }
 
 function getToken() {
