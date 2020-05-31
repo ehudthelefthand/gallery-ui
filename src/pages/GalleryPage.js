@@ -63,6 +63,9 @@ export default function () {
   };
 
   const handleFileChange = (e) => {
+    if (id === "new") {
+      return;
+    }
     const form = new FormData();
     const files = e.target.files;
     for (let i = 0; i < files.length; i++) {
@@ -106,17 +109,6 @@ export default function () {
           autoFocus
         ></input>
       </form>
-      {/* <form
-        method="POST"
-        action={`/galleries/${id}/images`}
-        encType="multipart/form-data"
-        className="upload"
-      >
-        <input className="upload__input" type="file" name="photos" multiple />
-        <button className="upload__button" type="submit">
-          upload
-        </button>
-      </form> */}
       <div className="upload">
         <label className="upload__label" htmlFor="photos">
           <span className="upload__label__text">Upload</span>

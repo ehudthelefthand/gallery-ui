@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useRouteMatch } from "react-router-dom";
 import API from "../api";
+import { faGift } from "@fortawesome/free-solid-svg-icons";
 
 export default function () {
   const { url } = useRouteMatch();
@@ -14,6 +15,17 @@ export default function () {
       })
       .catch((err) => console.error(err));
   }, []);
+
+  const handleDelete = (id) => {
+    API.deleteGallery(id)
+      .then(() => {
+        const filter = galleries.filter((g) => g.id !== id);
+        setGalleries(filter);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
 
   return (
     <div className="container">
@@ -29,18 +41,16 @@ export default function () {
           <div className="gallery-item" key={gallery.id}>
             <Link to={`${url}/gallery/${gallery.id}`}>
               <div className="gallery-item__cover">
-                {gallery.cover ? (
-                  <img
-                    className="gallery-item__cover"
-                    src={gallery.cover}
-                    alt={gallery.name}
-                  />
-                ) : (
-                  <FontAwesomeIcon icon="images" size="2x" />
-                )}
+                <FontAwesomeIcon icon="images" size="2x" />
               </div>
             </Link>
             <div className="gallery-item__title">{gallery.name}</div>
+            <button
+              className="gallery-item__button"
+              onClick={() => handleDelete(gallery.id)}
+            >
+              delete
+            </button>
           </div>
         ))}
       </div>

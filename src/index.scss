@@ -1,3 +1,47 @@
+@mixin button {
+  text-transform: capitalize;
+  border: 1px solid #000;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  padding: 8px 16px;
+  font-weight: bold;
+  height: 40px;
+  cursor: pointer;
+  color: #000;
+  outline: none;
+  text-decoration: none;
+  &:hover {
+    background-color: #000;
+    color: #fff;
+  }
+  &:active {
+    background-color: #fff;
+    color: #000;
+  }
+}
+
+@mixin delete-button {
+  text-transform: capitalize;
+  margin-top: 16px;
+  padding: 8px 16px;
+  font-size: 1rem;
+  background-color: #000;
+  color: #fff;
+  border: 1px solid transparent;
+  cursor: pointer;
+  outline: none;
+  &:hover {
+    background-color: #fff;
+    color: #000;
+    border-color: #000;
+  }
+  &:active {
+    background-color: #000;
+    color: #fff;
+    border-color: transparent;
+  }
+}
+
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
@@ -133,9 +177,10 @@ table {
 }
 
 body {
-  font-family: "Roboto", sans-serif;
+  font-family: "Kanit", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  letter-spacing: 0.1rem;
 }
 
 code {
@@ -186,28 +231,6 @@ code {
   margin: 0 2rem;
 }
 
-@mixin button {
-  text-transform: capitalize;
-  border: 1px solid #000;
-  border-radius: 0.25rem;
-  font-size: 1rem;
-  padding: 8px 16px;
-  font-weight: bold;
-  height: 40px;
-  cursor: pointer;
-  color: #000;
-  outline: none;
-  text-decoration: none;
-  &:hover {
-    background-color: #000;
-    color: #fff;
-  }
-  &:active {
-    background-color: #fff;
-    color: #000;
-  }
-}
-
 .gallery-form {
   margin-top: 64px;
   text-align: center;
@@ -249,12 +272,11 @@ code {
 }
 
 .gallery-item__cover {
-  border: 8px solid #000;
+  border: 2px solid #000;
   border-radius: 50%;
   width: 200px;
   height: 200px;
   position: relative;
-  box-shadow: 4px 4px 16px -4px;
 
   svg {
     position: absolute;
@@ -278,6 +300,12 @@ code {
 .gallery-item__title {
   font-weight: 700;
   margin-top: 16px;
+  letter-spacing: 0.1rem;
+  font-weight: 300;
+}
+
+.gallery-item__button {
+  @include delete-button();
 }
 
 .login-form {
@@ -356,25 +384,7 @@ code {
 }
 
 .image__button {
-  text-transform: capitalize;
-  margin-top: 16px;
-  padding: 8px 16px;
-  font-size: 1rem;
-  background-color: #000;
-  color: #fff;
-  border: 1px solid transparent;
-  cursor: pointer;
-  outline: none;
-  &:hover {
-    background-color: #fff;
-    color: #000;
-    border-color: #000;
-  }
-  &:active {
-    background-color: #000;
-    color: #fff;
-    border-color: transparent;
-  }
+  @include delete-button();
 }
 
 .upload {
