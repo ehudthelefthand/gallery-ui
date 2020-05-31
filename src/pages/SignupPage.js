@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, Route, Redirect } from "react-router-dom";
 import { useAuthState, useAuthDispatch } from "../Context";
 import API from "../api";
+import Storage from "../storage";
 
 export default function SignupPage() {
   const [email, setEmail] = useState("");
@@ -11,10 +12,6 @@ export default function SignupPage() {
   const history = useHistory();
   const dispatch = useAuthDispatch();
   const user = useAuthState();
-
-  if (user.isLogin) {
-    history.replace("/admin");
-  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -39,53 +36,61 @@ export default function SignupPage() {
   };
 
   return (
-    <div>
-      {message && <div className="message message--error">{message}</div>}
-      <form className="login-form" onSubmit={handleSubmit}>
-        <div className="login-form__field">
-          <label className="login-form__label" htmlFor="email">
-            Email
-          </label>
-          <input
-            className="login-form__text"
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            onFocus={() => setMessage("")}
-          />
-        </div>
-        <div className="login-form__field">
-          <label className="login-form__label" htmlFor="password">
-            Password
-          </label>
-          <input
-            className="login-form__text"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <div className="login-form__field">
-          <label className="login-form__label" htmlFor="password">
-            Confirm
-          </label>
-          <input
-            className="login-form__text"
-            type="password"
-            value={passwordConfirm}
-            onChange={(e) => setPasswordConfirm(e.target.value)}
-          />
-        </div>
-        <div className="login-form__field login-form__field--space-evenly">
-          <button className="login-form__submit" type="submit">
-            signup
-          </button>
-        </div>
-      </form>
-      <div style={{ textAlign: "center" }}>
-        <p>Already have account?</p>
-        <Link to="/login">Login</Link>
-      </div>
-    </div>
+    <Route
+      render={() =>
+        user.isLogin ? (
+          <Redirect to="/admin" />
+        ) : (
+          <div>
+            {message && <div className="message message--error">{message}</div>}
+            <form className="login-form" onSubmit={handleSubmit}>
+              <div className="login-form__field">
+                <label className="login-form__label" htmlFor="email">
+                  Email
+                </label>
+                <input
+                  className="login-form__text"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  onFocus={() => setMessage("")}
+                />
+              </div>
+              <div className="login-form__field">
+                <label className="login-form__label" htmlFor="password">
+                  Password
+                </label>
+                <input
+                  className="login-form__text"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+              <div className="login-form__field">
+                <label className="login-form__label" htmlFor="password">
+                  Confirm
+                </label>
+                <input
+                  className="login-form__text"
+                  type="password"
+                  value={passwordConfirm}
+                  onChange={(e) => setPasswordConfirm(e.target.value)}
+                />
+              </div>
+              <div className="login-form__field login-form__field--space-evenly">
+                <button className="login-form__submit" type="submit">
+                  signup
+                </button>
+              </div>
+            </form>
+            <div style={{ textAlign: "center" }}>
+              <p>Already have account?</p>
+              <Link to="/login">Login</Link>
+            </div>
+          </div>
+        )
+      }
+    ></Route>
   );
 }

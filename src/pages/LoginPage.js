@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, Route, Redirect } from "react-router-dom";
 import API from "../api";
 import { useAuthState, useAuthDispatch } from "../Context";
 import Storage from "../storage";
@@ -11,10 +11,6 @@ export default function LoginPage() {
   const history = useHistory();
   const dispatch = useAuthDispatch();
   const user = useAuthState();
-
-  if (user.isLogin) {
-    history.replace("/admin");
-  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -30,45 +26,53 @@ export default function LoginPage() {
   };
 
   return (
-    <div>
-      {message && <div className="message message--error">{message}</div>}
-      <form className="login-form" onSubmit={handleSubmit}>
-        <div className="login-form__field">
-          <label className="login-form__label" htmlFor="email">
-            Email
-          </label>
-          <input
-            id="email"
-            className="login-form__text"
-            type="email"
-            value={email}
-            placeholder="test@mail.com"
-            onChange={(e) => setEmail(e.target.value)}
-            onFocus={() => setMessage("")}
-          />
-        </div>
-        <div className="login-form__field">
-          <label className="login-form__label" htmlFor="password">
-            Password
-          </label>
-          <input
-            id="password"
-            className="login-form__text"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <div className="login-form__field login-form__field--space-evenly">
-          <button className="login-form__submit" type="submit">
-            login
-          </button>
-        </div>
-      </form>
-      <div style={{ textAlign: "center" }}>
-        <p>No account?</p>
-        <Link to="/signup">Singup</Link>
-      </div>
-    </div>
+    <Route
+      render={() =>
+        user.isLogin ? (
+          <Redirect to="/admin" />
+        ) : (
+          <div>
+            {message && <div className="message message--error">{message}</div>}
+            <form className="login-form" onSubmit={handleSubmit}>
+              <div className="login-form__field">
+                <label className="login-form__label" htmlFor="email">
+                  Email
+                </label>
+                <input
+                  id="email"
+                  className="login-form__text"
+                  type="email"
+                  value={email}
+                  placeholder="test@mail.com"
+                  onChange={(e) => setEmail(e.target.value)}
+                  onFocus={() => setMessage("")}
+                />
+              </div>
+              <div className="login-form__field">
+                <label className="login-form__label" htmlFor="password">
+                  Password
+                </label>
+                <input
+                  id="password"
+                  className="login-form__text"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+              <div className="login-form__field login-form__field--space-evenly">
+                <button className="login-form__submit" type="submit">
+                  login
+                </button>
+              </div>
+            </form>
+            <div style={{ textAlign: "center" }}>
+              <p>No account?</p>
+              <Link to="/signup">Singup</Link>
+            </div>
+          </div>
+        )
+      }
+    ></Route>
   );
 }
