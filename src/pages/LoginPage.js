@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import API from "../api";
 import { useAuthState, useAuthDispatch } from "../Context";
 import Storage from "../storage";
@@ -9,7 +9,6 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const history = useHistory();
-  const location = useLocation();
   const dispatch = useAuthDispatch();
   const user = useAuthState();
 
@@ -23,8 +22,7 @@ export default function LoginPage() {
       .then((res) => {
         dispatch({ type: "SET_USER", isLogin: true, email });
         Storage.saveToken(res.data.token);
-        const { from } = location.state || { from: { pathname: "/admin" } };
-        history.replace(from);
+        history.replace("/admin");
       })
       .catch(() => {
         setMessage("Login fail! Username or Password is invalid");

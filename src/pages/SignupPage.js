@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { useAuthState } from "../Context";
+import { useAuthState, useAuthDispatch } from "../Context";
+import API from "../api";
 
 export default function SignupPage() {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [message, setMessage] = useState("");
   const history = useHistory();
+  const dispatch = useAuthDispatch();
   const user = useAuthState();
 
   if (user.isLogin) {
@@ -15,20 +18,40 @@ export default function SignupPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (email.trim() === "" || password.trim() === "") {
+      setMessage("Email or Password can't be empty");
+      return;
+    }
+    if (password.trim() !== passwordConfirm.trim()) {
+      setMessage("Password and Confirm is not match");
+      return;
+    }
+    API.signup({ email, password })
+      .then((res) => {
+        const { email, token } = res.data;
+        dispatch({ type: "SET_USER", isLogin: true, email });
+        Storage.saveToken(token);
+        history.replace("/admin");
+      })
+      .catch(() => {
+        setMessage("Login fail! Username or Password is invalid");
+      });
   };
 
   return (
     <div>
+      {message && <div className="message message--error">{message}</div>}
       <form className="login-form" onSubmit={handleSubmit}>
         <div className="login-form__field">
-          <label className="login-form__label" htmlFor="username">
-            Username
+          <label className="login-form__label" htmlFor="email">
+            Email
           </label>
           <input
             className="login-form__text"
             type="email"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            onFocus={() => setMessage("")}
           />
         </div>
         <div className="login-form__field">

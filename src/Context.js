@@ -7,7 +7,8 @@ const AuthDispatchContext = createContext();
 function authReducer(state, action) {
   switch (action.type) {
     case "SET_USER":
-      return { ...state };
+      const { isLogin, email } = action;
+      return { ...state, isLogin, email };
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);
     }

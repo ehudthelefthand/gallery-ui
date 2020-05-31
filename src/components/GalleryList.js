@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useRouteMatch } from "react-router-dom";
 import API from "../api";
-import { faGift } from "@fortawesome/free-solid-svg-icons";
 
 export default function () {
   const { url } = useRouteMatch();

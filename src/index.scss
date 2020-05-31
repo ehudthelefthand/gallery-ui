@@ -42,6 +42,27 @@
   }
 }
 
+@mixin nav-button {
+  background-color: #000;
+  border: 1px solid #fff;
+  padding: 8px 16px;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  text-transform: capitalize;
+  outline: none;
+  margin-left: 16px;
+  text-decoration: none;
+  &:hover {
+    background-color: #fff;
+    color: #000;
+  }
+  &:active {
+    background-color: #000;
+    color: #fff;
+  }
+}
+
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
@@ -209,22 +230,16 @@ code {
   }
 }
 
+.nav__login {
+  @include nav-button;
+}
+
+.nav__signup {
+  @include nav-button;
+}
+
 .nav__logout {
-  background-color: #000;
-  border: 1px solid #fff;
-  padding: 8px 16px;
-  color: #fff;
-  font-size: 1rem;
-  cursor: pointer;
-  outline: none;
-  &:hover {
-    background-color: #fff;
-    color: #000;
-  }
-  &:active {
-    background-color: #000;
-    color: #fff;
-  }
+  @include nav-button;
 }
 
 .container {
