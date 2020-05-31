@@ -1,10 +1,17 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { useAuthState } from "../Context";
 
 export default function SignupPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
+  const history = useHistory();
+  const user = useAuthState();
+
+  if (user.isLogin) {
+    history.replace("/admin");
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
