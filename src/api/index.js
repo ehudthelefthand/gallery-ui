@@ -17,38 +17,43 @@ axios.interceptors.request.use(
 // const host = "http://localhost:8080";
 const host = "/api";
 
-function listGallery() {
+function listPublishGallery() {
   const url = `${host}/galleries`;
+  return axios.get(url);
+}
+
+function listGallery() {
+  const url = `${host}/admin/galleries`;
   return axios.get(url);
 }
 
 function createGallery({ name }) {
-  const url = `${host}/galleries`;
+  const url = `${host}/admin/galleries`;
   return axios.post(url, { name });
 }
 
 function deleteGallery(id) {
-  const url = `${host}/galleries/${id}`;
+  const url = `${host}/admin/galleries/${id}`;
   return axios.delete(url);
 }
 
 function updateGalleryName({ id, name }) {
-  const url = `${host}/galleries/${id}/names`;
+  const url = `${host}/admin/galleries/${id}/names`;
   return axios.patch(url, { name });
 }
 
 function updateGalleryStatus({ id, status }) {
-  const url = `${host}/galleries/${id}/status`;
+  const url = `${host}/admin/galleries/${id}/status`;
   return axios.patch(url, { status });
 }
 
 function getGallery(id) {
-  const url = `${host}/galleries/${id}`;
+  const url = `${host}/admin/galleries/${id}`;
   return axios.get(url);
 }
 
 function listGalleryImage(id) {
-  const url = `${host}/galleries/${id}/images`;
+  const url = `${host}/admin/galleries/${id}/images`;
   return axios.get(url);
 }
 
@@ -62,27 +67,23 @@ function signup({ email, password }) {
   return axios.post(url, { email, password });
 }
 
-function getSession() {
-  const url = `${host}/sessions`;
-  return axios.get(url);
-}
-
 function logout() {
   const url = `${host}/logout`;
   return axios.post(url);
 }
 
 function upload(id, formData) {
-  const url = `/galleries/${id}/images`;
+  const url = `/admin/galleries/${id}/images`;
   return axios.post(url, formData);
 }
 
 function deleteImage(id) {
-  const url = `/images/${id}`;
+  const url = `/admin/images/${id}`;
   return axios.delete(url);
 }
 
 export default {
+  listPublishGallery,
   listGallery,
   createGallery,
   deleteGallery,
@@ -92,7 +93,6 @@ export default {
   listGalleryImage,
   login,
   signup,
-  getSession,
   logout,
   upload,
   deleteImage,

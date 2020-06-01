@@ -428,3 +428,34 @@ code {
 .upload__input {
   display: none;
 }
+
+// Home
+
+.gallery-home {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.gallery {
+  width: 90%;
+  margin: 32px auto;
+}
+
+.gallery__name {
+  font-size: 2rem;
+  margin: 16px;
+}
+
+.gallery__images {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.gallery__image-wrap {
+  width: 20%;
+  margin: 16px;
+}
+
+.gallery__image {
+  width: 100%;
+}

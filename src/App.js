@@ -10,6 +10,7 @@ import Navbar from "./components/Navbar";
 import AdminPage from "./pages/AdminPage";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
+import HomePage from "./pages/HomePage";
 import { useAuthState } from "./Context";
 
 function Private({ children, ...rest }) {
@@ -41,7 +42,7 @@ function App() {
             <SignupPage />
           </Route>
           <Route exact path="/">
-            <div>home</div>
+            <HomePage />
           </Route>
           <Private path="/admin">
             <AdminPage />
