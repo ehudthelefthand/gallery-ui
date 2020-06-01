@@ -323,6 +323,14 @@ code {
   @include delete-button();
 }
 
+.gallery-item__button--private {
+  background-color: #c02739;
+}
+
+.gallery-item__button--public {
+  background-color: #29c7ac;
+}
+
 .login-form {
   width: 400px;
   margin: 0 auto;
@@ -449,6 +457,7 @@ code {
 .gallery__images {
   display: flex;
   flex-flow: row wrap;
+  justify-content: space-between;
 }
 
 .gallery__image-wrap {

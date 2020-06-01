@@ -42,9 +42,9 @@ function updateGalleryName({ id, name }) {
   return axios.patch(url, { name });
 }
 
-function updateGalleryStatus({ id, status }) {
-  const url = `${host}/admin/galleries/${id}/status`;
-  return axios.patch(url, { status });
+function updateGalleryStatus({ id, is_publish }) {
+  const url = `${host}/admin/galleries/${id}/publishes`;
+  return axios.patch(url, { is_publish });
 }
 
 function getGallery(id) {

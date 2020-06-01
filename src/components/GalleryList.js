@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useRouteMatch } from "react-router-dom";
+import classNames from "classnames";
 import API from "../api";
 
 export default function () {
@@ -26,6 +27,20 @@ export default function () {
       });
   };
 
+  const updateStatus = ({ id, is_publish }) => {
+    API.updateGalleryStatus({ id, is_publish: !is_publish })
+      .then(() => {
+        const update = galleries.map((gal) => {
+          if (gal.id === id) {
+            return { ...gal, is_publish: !is_publish };
+          }
+          return gal;
+        });
+        setGalleries(update);
+      })
+      .catch(() => {});
+  };
+
   return (
     <div className="container">
       <div className="gallery-list">
@@ -44,12 +59,25 @@ export default function () {
               </div>
             </Link>
             <div className="gallery-item__title">{gallery.name}</div>
-            <button
-              className="gallery-item__button"
-              onClick={() => handleDelete(gallery.id)}
-            >
-              delete
-            </button>
+            <div>
+              <button
+                className="gallery-item__button"
+                onClick={() => handleDelete(gallery.id)}
+              >
+                delete
+              </button>
+            </div>
+            <div>
+              <button
+                className={classNames("gallery-item__button", {
+                  "gallery-item__button--private": !gallery.is_publish,
+                  "gallery-item__button--public": gallery.is_publish,
+                })}
+                onClick={() => updateStatus(gallery)}
+              >
+                {gallery.is_publish ? "public" : "private"}
+              </button>
+            </div>
           </div>
         ))}
       </div>
