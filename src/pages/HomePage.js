@@ -17,7 +17,11 @@ export default function HomePage() {
           <div className="gallery__images">
             {gal.images.map((img) => (
               <div className="gallery__image-wrap" key={img.id}>
-                <img className="gallery__image" src={img.filename} />
+                <img
+                  className="gallery__image"
+                  src={img.filename}
+                  alt={img.filename}
+                />
               </div>
             ))}
           </div>
