@@ -13,11 +13,10 @@ COPY . ./
 RUN yarn build
 
 
-FROM nginx:stable-alpine
+FROM caddy:2.0.0-alpine
 
-COPY --from=builder /app/build /usr/share/nginx/html
-
-COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=builder /app/build /app
 
 EXPOSE 80
 
+EXPOSE 443
