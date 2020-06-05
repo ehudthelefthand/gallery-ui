@@ -1,5 +1,5 @@
-pongneng.chickenkiller.com
-# :80
+pongneng.chickenkiller.com # For production
+# :80 # For local
 
 root * /app
 try_files {path} {path}/ /index.html
