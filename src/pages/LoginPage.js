@@ -18,7 +18,7 @@ export default function LoginPage() {
       .then((res) => {
         dispatch({ type: "SET_USER", isLogin: true, email });
         Storage.saveToken(res.data.token);
-        history.replace("/admin");
+        history.replace("/private");
       })
       .catch(() => {
         setMessage("Login fail! Username or Password is invalid");
@@ -29,7 +29,7 @@ export default function LoginPage() {
     <Route
       render={() =>
         user.isLogin ? (
-          <Redirect to="/admin" />
+          <Redirect to="/private" />
         ) : (
           <div>
             {message && <div className="message message--error">{message}</div>}

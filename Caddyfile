@@ -1,0 +1,21 @@
+:80
+
+log stdout
+root build
+try_files {path} {path}/ /index.html
+# rewrite {
+#     if {patn} not ^/api
+#     to /index.html
+# }
+# rewrite {
+# to {file} index.html
+# }
+# rewrite /private/* /index.html
+# route /api/* {
+# 	uri strip_prefix /api
+# 	reverse_proxy localhost:8080
+# }
+# route /upload/* {
+# 	reverse_proxy localhost:8080
+# }
+file_server

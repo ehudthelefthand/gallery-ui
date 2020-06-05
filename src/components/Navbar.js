@@ -24,7 +24,7 @@ export default function () {
   return (
     <nav className="nav">
       {user.isLogin ? (
-        <Link to="/admin" className="nav__brand">
+        <Link to="/private" className="nav__brand">
           Gallery
         </Link>
       ) : (

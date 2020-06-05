@@ -28,7 +28,7 @@ export default function SignupPage() {
         const { email, token } = res.data;
         dispatch({ type: "SET_USER", isLogin: true, email });
         Storage.saveToken(token);
-        history.replace("/admin");
+        history.replace("/private");
       })
       .catch(() => {
         setMessage("Login fail! Username or Password is invalid");
@@ -39,7 +39,7 @@ export default function SignupPage() {
     <Route
       render={() =>
         user.isLogin ? (
-          <Redirect to="/admin" />
+          <Redirect to="/private" />
         ) : (
           <div>
             {message && <div className="message message--error">{message}</div>}

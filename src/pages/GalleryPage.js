@@ -130,10 +130,7 @@ export default function () {
       <div className="images">
         {images.map((img) => (
           <div className="image" key={img.id}>
-            <img
-              src={`http://localhost:8080/${img.filename}`}
-              alt={img.filename}
-            />
+            <img src={`${API.host}/${img.filename}`} alt={img.filename} />
             <button
               className="image__button"
               onClick={() => {

@@ -14,8 +14,8 @@ axios.interceptors.request.use(
   }
 );
 
-// const host = "http://localhost:8080";
-const host = "/api";
+const host = "http://localhost:8080";
+// const host = "/api";
 
 function listPublishGallery() {
   const url = `${host}/galleries`;
@@ -73,16 +73,17 @@ function logout() {
 }
 
 function upload(id, formData) {
-  const url = `/admin/galleries/${id}/images`;
+  const url = `${host}/admin/galleries/${id}/images`;
   return axios.post(url, formData);
 }
 
 function deleteImage(id) {
-  const url = `/admin/images/${id}`;
+  const url = `${host}/admin/images/${id}`;
   return axios.delete(url);
 }
 
 export default {
+  host,
   listPublishGallery,
   listGallery,
   createGallery,

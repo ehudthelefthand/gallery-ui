@@ -44,7 +44,7 @@ function App() {
           <Route exact path="/">
             <HomePage />
           </Route>
-          <Private path="/admin">
+          <Private path="/private">
             <AdminPage />
           </Private>
           <Route path="*">
