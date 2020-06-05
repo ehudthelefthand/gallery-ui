@@ -10,7 +10,9 @@ COPY yarn.lock /app
 
 RUN yarn install
 
-COPY . ./
+COPY src /app
+
+COPY public /app
 
 RUN yarn build
 
