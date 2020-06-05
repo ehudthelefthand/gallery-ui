@@ -1,4 +1,5 @@
-:80
+pongneng.chickenkiller.com/
+# :80
 
 log stdout
 root * /app
