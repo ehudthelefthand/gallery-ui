@@ -16,6 +16,12 @@ axios.interceptors.request.use(
 
 const host = "http://localhost:8080";
 // const host = "/api";
+// console.log(process.env.NODE_ENV);
+// console.log(process.env.REACT_APP_API_URL);
+// const host = process.env.REACT_APP_API_URL;
+// if (host === "" || host === undefined) {
+//   throw new Error("API endpoint is not assign");
+// }
 
 function listPublishGallery() {
   const url = `${host}/galleries`;
