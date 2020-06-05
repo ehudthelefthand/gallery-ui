@@ -1,7 +1,6 @@
 pongneng.chickenkiller.com
 # :80
 
-log stdout
 root * /app
 try_files {path} {path}/ /index.html
 file_server
